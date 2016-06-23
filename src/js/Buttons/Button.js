@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import classnames from 'classnames';
 
-import injectInk from '../Inks';
-
-class Button extends Component {
+export default class Button extends Component {
   constructor(props) {
     super(props);
 
@@ -22,9 +20,6 @@ class Button extends Component {
     disabled: PropTypes.bool,
     iconBefore: PropTypes.bool,
     href: PropTypes.string,
-
-    // Injected from injectInk
-    ink: PropTypes.node,
   };
 
   static defaultProps = {
@@ -54,7 +49,6 @@ class Button extends Component {
       href,
       primary,
       secondary,
-      ink,
       ...props,
     } = this.props;
 
@@ -64,13 +58,12 @@ class Button extends Component {
 
     return React.createElement(href ? 'a' : 'button', {
       ...props,
+      ['data-ink-target']: true,
       href: href,
       className: classnames('md-btn', className, {
         'md-primary': primary,
         'md-secondary': secondary,
       }),
-    }, [ink, this.renderChildren()]);
+    }, this.renderChildren());
   }
 }
-
-export default injectInk(Button);

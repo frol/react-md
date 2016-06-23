@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import classnames from 'classnames';
-import injectInk from '../Inks';
 
 /**
  * The `Tab` component should be rendered inside the `Tabs` component.
  * It is used for generating a tab and holding some sort of content
  * to be displayed when active.
  */
-class Tab extends Component {
+export default class Tab extends Component {
   constructor(props) {
     super(props);
 
@@ -52,22 +51,17 @@ class Tab extends Component {
      * `Tabs` component.
      */
     onChange: PropTypes.func,
-
-    /**
-     * Ink that has been injected from the `injectInk` HOC. Do not use.
-     */
-    ink: PropTypes.node.isRequired,
   };
 
   render() {
-    const { className, icon, label, label2, checked, ink, onChange, ...props } = this.props;
+    const { className, icon, label, label2, checked, onChange, ...props } = this.props;
 
     return (
       <div
+        data-ink-target={true}
         className={classnames('md-tab', className, { 'active': checked })}
         {...props}
       >
-        {ink}
         <label
           className={classnames('md-tab-label', {
             'multiline': !!label && !!label2,
@@ -88,5 +82,3 @@ class Tab extends Component {
     );
   }
 }
-
-export default injectInk(Tab);

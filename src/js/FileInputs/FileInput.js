@@ -2,14 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import classnames from 'classnames';
 
-import injectInk from '../Inks';
 import FontIcon from '../FontIcons';
 
 /**
  * The `FileInput` component is used as simple styling for the `<input type="file" />`.
  * It will style the input as a raised button by default.
  */
-class FileInput extends Component {
+export default class FileInput extends Component {
   constructor(props) {
     super(props);
 
@@ -93,11 +92,6 @@ class FileInput extends Component {
      * ```
      */
     onChange: PropTypes.func.isRequired,
-
-    /**
-     * Injected from `injectInk`
-     */
-    ink: PropTypes.node,
   };
 
   static defaultProps = {
@@ -125,7 +119,6 @@ class FileInput extends Component {
       primary,
       secondary,
       flat,
-      ink,
       ...props,
     } = this.props;
     delete props.onChange;
@@ -138,8 +131,8 @@ class FileInput extends Component {
           'md-secondary': secondary,
         })}
         disabled={props.disabled}
+        data-ink-target={true}
       >
-        {ink}
         <input
           {...props}
           aria-hidden="true"
@@ -155,5 +148,3 @@ class FileInput extends Component {
     );
   }
 }
-
-export default injectInk(FileInput);

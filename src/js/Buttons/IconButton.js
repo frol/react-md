@@ -3,7 +3,6 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import classnames from 'classnames';
 
 import FontIcon from '../FontIcons';
-import injectInk from '../Inks';
 import injectTooltip from '../Tooltips';
 
 /**
@@ -73,9 +72,6 @@ class IconButton extends Component {
      */
     tooltipDelay: PropTypes.number,
 
-    // Injected from injectInk
-    ink: PropTypes.node,
-
     // Inject from injectTooltip
     tooltip: PropTypes.node,
   };
@@ -93,12 +89,12 @@ class IconButton extends Component {
       type,
       tooltip,
       disabled,
-      ink,
       ...props,
     } = this.props;
 
     const btnProps = {
       ...props,
+      ['data-ink-target']: true,
       disabled,
       className: classnames('md-btn md-icon-btn', className),
     };
@@ -114,8 +110,8 @@ class IconButton extends Component {
       displayedChildren = <FontIcon key="icon" iconClassName={iconClassName}>{children}</FontIcon>;
     }
 
-    return React.createElement(href ? 'a' : 'button', btnProps, [ink, displayedChildren, tooltip]);
+    return React.createElement(href ? 'a' : 'button', btnProps, [displayedChildren, tooltip]);
   }
 }
 
-export default injectTooltip(injectInk(IconButton));
+export default injectTooltip(IconButton);

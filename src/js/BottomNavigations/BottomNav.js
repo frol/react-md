@@ -3,13 +3,12 @@ import PureRenderMixin from 'react-addons-pure-render-mixin';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import classnames from 'classnames';
 import FontIcon from '../FontIcons';
-import injectInk from '../Inks';
 
 /**
  * The `BottomNav` component is used for rendering one of the nav items
  * in the `BottomNavigation` component. This is used for switching the view.
  */
-class BottomNav extends Component {
+export default class BottomNav extends Component {
   constructor(props) {
     super(props);
 
@@ -80,11 +79,6 @@ class BottomNav extends Component {
     fixed: PropTypes.bool.isRequired,
 
     /**
-     * Ink injected from `injectInk`.
-     */
-    ink: PropTypes.node,
-
-    /**
      * The component to render as.
      */
     component: PropTypes.oneOfType([
@@ -112,7 +106,6 @@ class BottomNav extends Component {
       colored,
       active,
       fixed,
-      ink,
       component,
       ...props,
     } = this.props;
@@ -132,6 +125,7 @@ class BottomNav extends Component {
         transitionName="bottom-nav"
         transitionEnterTimeout={150}
         transitionLeave={false}
+        data-ink-target={true}
         className={classnames('md-bottom-nav', className, {
           active,
           colored,
@@ -142,12 +136,9 @@ class BottomNav extends Component {
         {...props}
         onClick={this.handleClick}
       >
-        {ink}
         <FontIcon key="icon" iconClassName={iconClassName}>{iconChildren}</FontIcon>
         {displayLabel}
       </CSSTransitionGroup>
     );
   }
 }
-
-export default injectInk(BottomNav);

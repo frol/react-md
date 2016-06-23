@@ -2,9 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 import classnames from 'classnames';
 
-import injectInk from '../Inks';
-
-class ListTile extends Component {
+export default class ListTile extends Component {
   constructor(props) {
     super(props);
 
@@ -20,9 +18,6 @@ class ListTile extends Component {
     children: PropTypes.node,
     role: PropTypes.string,
     tabIndex: PropTypes.number,
-
-    // Injected from injectInk
-    ink: PropTypes.node,
   };
 
   static defaultProps = {
@@ -31,12 +26,11 @@ class ListTile extends Component {
   };
 
   render() {
-    const { component, ink, className, children, ...props } = this.props;
+    const { component, className, children, ...props } = this.props;
     return React.createElement(component, {
       ...props,
+      ['data-ink-target']: true,
       className: classnames('md-list-tile', className),
-    }, [ink, children]);
+    }, children);
   }
 }
-
-export default injectInk(ListTile);
